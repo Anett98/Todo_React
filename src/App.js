@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState,useReducer } from 'react'
+import {reducer} from './Components/Reducer'
+import TodoList from './Components/TodoList'
+import Form from './Components/Form'
+import Footer from './Components/Footer'
+import './App.css'
 
-function App() {
+
+export default function App1() {
+    const [todo, dispatch] = useReducer(reducer, [])
+    const [text, setText] = useState('')
+    
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+        <h1>Todos</h1>
+        <Form text={text} dispatch={dispatch} setText={setText} />
+        {todo.map(item=> <TodoList text={text} setText={setText} key={item.id} todo= {item} dispatch={dispatch}/>)}
+        <Footer todo={todo} dispatch={dispatch}/>
     </div>
-  );
+  )
 }
-
-export default App;
